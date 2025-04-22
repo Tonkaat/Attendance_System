@@ -1,4 +1,3 @@
-// DOM Elements
 const checkInBtn = document.getElementById('checkInBtn');
 const checkOutBtn = document.getElementById('checkOutBtn');
 const confirmModal = document.getElementById('confirmModal');
@@ -14,14 +13,10 @@ const studentTableBody = document.getElementById('studentTableBody');
 const tabs = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.tab-content');
 
-// Student data array (will be loaded from server)
-let studentData = [
-    // Default data in case server load fails
-    { Student_Surname: "Smith", Student_Name: "J", Status: "none", CheckInTime: "", CheckOutTime: "" },
-    { Student_Surname: "Johnson", Student_Name: "A", Status: "none", CheckInTime: "", CheckOutTime: "" }
-];
 
-// Action state (check-in or check-out)
+let studentData = [];
+
+// stqatus
 let currentAction = '';
 let selectedStudent = null;
 
@@ -40,7 +35,7 @@ tabs.forEach(tab => {
     });
 });
 
-// Load data from server when page loads
+// Load data
 window.addEventListener('DOMContentLoaded', () => {
     loadDataFromServer();
 });
@@ -50,20 +45,18 @@ function loadDataFromServer() {
         .then(response => response.json())
         .then(data => {
             if (data && data.length > 0) {
-                // Transform data to match our new structure if needed
                 studentData = data.map(student => {
-                    // Handle legacy data format
                     if (!student.CheckInTime && !student.CheckOutTime && student.Timestamp) {
                         if (student.Status === 'checked in') {
                             student.CheckInTime = student.Timestamp;
                             student.CheckOutTime = "";
                         } else if (student.Status === 'checked out') {
-                            student.CheckInTime = "";  // We don't know when they checked in
+                            student.CheckInTime = ""; 
                             student.CheckOutTime = student.Timestamp;
                         }
                     }
                     
-                    // Ensure we have the new fields
+                    // Ensuring new fields
                     return {
                         Student_Surname: student.Student_Surname || "",
                         Student_Name: student.Student_Name || "",
@@ -137,11 +130,11 @@ function processAttendance() {
     const surname = surnameInput.value.trim();
     const nameInitial = nameInput.value.trim();
     
-    // Find student in data
+    // Find student
     let student = findStudent(surname, nameInitial);
     
     if (!student) {
-        // If student not found, add them to the database
+        // If student not found, add to db
         student = {
             Student_Surname: surname,
             Student_Name: nameInitial,
