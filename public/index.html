@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduation Attendance System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MKD Attendance System</h1>
+            <p>Mark ikaw na bahala sa UI</p>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="registration">Registration</div>
+            <div class="tab" data-tab="search">Student Lookup</div>
+        </div>
+
+        <div class="tab-content active" id="tab-registration">
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" placeholder="Enter your surname">
+                </div>
+                <div class="form-group">
+                    <label for="name">First Name Initial</label>
+                    <input type="text" id="name" placeholder="Enter your first name initial">
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-checkin" id="checkInBtn">Check In</button>
+                    <button class="btn-checkout" id="checkOutBtn">Check Out</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-search">
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search by surname or name initial">
+                    <button id="searchBtn">Search</button>
+                </div>
+                <div class="student-table-container">
+                    <table class="student-table" id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>Surname</th>
+                                <th>Name Initial</th>
+                                <th>Status</th>
+                                <th>Check-In Time</th>
+                                <th>Check-Out Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Student data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h3 id="confirmMessage">Are you sure you want to check in?</h3>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-confirm" id="confirmBtn">Confirm</button>
+                <button class="modal-btn modal-btn-cancel" id="cancelBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
